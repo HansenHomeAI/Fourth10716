@@ -75,7 +75,7 @@
     }
     </script>
     <script type="module">
-    import { WebGLRenderer, PerspectiveCamera, Scene, Color, Vector3, SphereGeometry, CylinderGeometry, BoxGeometry, MeshBasicMaterial, Mesh, TextureLoader, PlaneGeometry, DoubleSide, MeshStandardMaterial, Texture, MathUtils } from 'three';
+    import { WebGLRenderer, PerspectiveCamera, Scene, Color, Vector3, SphereGeometry, CylinderGeometry, BoxGeometry, MeshBasicMaterial, Mesh, TextureLoader, PlaneGeometry, DoubleSide, MeshStandardMaterial, Texture, MathUtils, Matrix4 } from 'three';
 
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     import { LumaSplatsThree } from '@lumaai/luma-web';
@@ -134,12 +134,71 @@
 
     // Centralized control section for BorderDots and BorderLines
     const borderDotPositions = [
-        //{ name: 'BorderDot_1', position: { x: 0.08, y: -0.917, z: -0.15 } },
-        //{ name: 'BorderDot_2', position: { x: 0.14, y: -0.917, z: -0.08 } },
+        { name: 'BorderDot_4', position: { x: 0, y: -0.083, z: 0.64 } },
+        { name: 'BorderDot_5', position: { x: 0.5, y: -0.11, z: 0.64 } },
+        { name: 'BorderDot_6', position: { x: 0.8, y: -0.12, z: 0.63 } },
+        { name: 'BorderDot_7', position: { x: 0.9, y: -0.125, z: 0.6 } },
+        { name: 'BorderDot_8', position: { x: 1, y: -0.13, z: 0.54 } },
+        { name: 'BorderDot_9', position: { x: 1.085, y: -0.137, z: 0.45 } },
+        { name: 'BorderDot_10', position: { x: 1.18, y: -0.157, z: 0.1 } },
+        { name: 'BorderDot_11', position: { x: 1.41, y: -0.181, z: -0.3 } },
+        { name: 'BorderDot_12', position: { x: 1.71, y: -0.21, z: -0.57 } },
+        
+        { name: 'BorderDot_13', position: { x: 1.8, y: -0.217, z: -0.8 } },
+        { name: 'BorderDot_14', position: { x: 1.75, y: -0.22, z: -1.22 } },
+        { name: 'BorderDot_15', position: { x: 1.5, y: -0.16, z: -1.32 } },
+        { name: 'BorderDot_16', position: { x: 0.85, y: -0.12, z: -1.56 } },
+        { name: 'BorderDot_17', position: { x: -0.2, y: -0.153, z: -2 } },
+        { name: 'BorderDot_18', position: { x: -0.93, y: -0.193, z: -2.1 } },
+        { name: 'BorderDot_19', position: { x: -2.8, y: -1.18, z: -3.5 } },
+        { name: 'BorderDot_20', position: { x: -2.8, y: -0.68, z: -0.8 } },
+
+        { name: 'BorderDot_21', position: { x: -3.8, y: -0.8, z: 0.1 } },
+        { name: 'BorderDot_22', position: { x: -3.8, y: -0.4, z: 1.9 } },
+        { name: 'BorderDot_23', position: { x: -3.2, y: -0.35, z: 1.2 } },
+        { name: 'BorderDot_24', position: { x: -1.7, y: 0.03, z: 0.5 } },
+        { name: 'BorderDot_25', position: { x: -1.3, y: 0.032, z: 0.95 } },
+        { name: 'BorderDot_26', position: { x: -0.77, y: -0.06, z: 1.56 } },
+        { name: 'BorderDot_27', position: { x: -0.4, y: -0.053, z: 0.9 } },
+        { name: 'BorderDot_28', position: { x: -0.32, y: -0.058, z: 0.8 } },
+        { name: 'BorderDot_29', position: { x: -0.23, y: -0.064, z: 0.71 } },
+        { name: 'BorderDot_30', position: { x: -0.16, y: -0.071, z: 0.675 } },
+    
     ];
 
     const borderLineConnections = [
-        //{ start: 'BorderDot_1', end: 'BorderDot_2' },
+        { start: 'BorderDot_1', end: 'BorderDot_2' },
+        { start: 'BorderDot_2', end: 'BorderDot_3' },
+    
+        { start: 'BorderDot_4', end: 'BorderDot_5' },
+        { start: 'BorderDot_5', end: 'BorderDot_6' },
+        { start: 'BorderDot_6', end: 'BorderDot_7' },
+        { start: 'BorderDot_7', end: 'BorderDot_8' },
+        { start: 'BorderDot_8', end: 'BorderDot_9' },
+        { start: 'BorderDot_9', end: 'BorderDot_10' },
+        { start: 'BorderDot_10', end: 'BorderDot_11' },
+        { start: 'BorderDot_11', end: 'BorderDot_12' },
+        
+        { start: 'BorderDot_12', end: 'BorderDot_13' },
+        { start: 'BorderDot_13', end: 'BorderDot_14' },
+        { start: 'BorderDot_14', end: 'BorderDot_15' },
+        { start: 'BorderDot_15', end: 'BorderDot_16' },
+        { start: 'BorderDot_16', end: 'BorderDot_17' },
+        { start: 'BorderDot_17', end: 'BorderDot_18' },
+        { start: 'BorderDot_18', end: 'BorderDot_19' },
+        { start: 'BorderDot_19', end: 'BorderDot_20' },
+        
+        { start: 'BorderDot_20', end: 'BorderDot_21' },
+        { start: 'BorderDot_21', end: 'BorderDot_22' },
+        { start: 'BorderDot_22', end: 'BorderDot_23' },
+        { start: 'BorderDot_23', end: 'BorderDot_24' },
+        { start: 'BorderDot_24', end: 'BorderDot_25' },
+        { start: 'BorderDot_25', end: 'BorderDot_26' },
+        { start: 'BorderDot_26', end: 'BorderDot_27' },
+        { start: 'BorderDot_27', end: 'BorderDot_28' },
+        { start: 'BorderDot_28', end: 'BorderDot_29' },
+        { start: 'BorderDot_29', end: 'BorderDot_30' },
+        { start: 'BorderDot_30', end: 'BorderDot_4' },
     ];
 
     // Border Dot Parameters
@@ -147,7 +206,7 @@
         radius: 0.01,
         widthSegments: 16,
         heightSegments: 16,
-        color: 0x9B9B90
+        color: 0xffa500
     };
 
     // Base sizes for TapDots and Icons
@@ -163,7 +222,6 @@
             splatsOn: ['splat2'], // Splats to turn ON when inside this zone
             splatsOff: ['splat1'] // Splats to turn OFF when inside this zone
         }
-        // Add more zones if needed
     ];
 
     if (isChrome()) {
@@ -445,23 +503,48 @@
         return { name, mesh: borderDot };
     }
 
+    // ***** ONLY THIS FUNCTION CHANGED TO REMOVE LENGTH-WISE ROLL *****
     function createBorderLineBetweenDots(dot1, dot2) {
         const start = dot1.position;
         const end = dot2.position;
         const direction = new Vector3().subVectors(end, start);
         const length = direction.length();
         const midPoint = new Vector3().addVectors(start, end).multiplyScalar(0.5);
+
         const boxThickness = borderDotParams.radius * 2;
         const boxHeight = 0.002;
+
         const boxGeometry = new BoxGeometry(length, boxHeight, boxThickness);
         const boxMaterial = new MeshBasicMaterial({ color: borderDotParams.color, transparent: true, opacity: 0 });
         const box = new Mesh(boxGeometry, boxMaterial);
-        const axis = new Vector3(1, 0, 0);
-        box.quaternion.setFromUnitVectors(axis.normalize(), direction.clone().normalize());
-        box.position.copy(midPoint);
+
+        // We define the local X axis as the direction of the line
+        // and then fix the local Y/Z using a stable 'up' vector so we don't roll.
+        let x = direction.clone().normalize();
+        let up = new Vector3(0, 1, 0);
+
+        // If direction is nearly parallel to world up, pick a different stable up
+        if (Math.abs(x.dot(up)) > 0.9999) {
+            up = new Vector3(0, 0, 1);
+        }
+
+        let z = new Vector3().crossVectors(x, up).normalize();
+        let y = new Vector3().crossVectors(z, x).normalize();
+
+        let rotMatrix = new Matrix4();
+        // Create a rotation basis from x,y,z
+        rotMatrix.makeBasis(x, y, z);
+
+        // Position the box at the midpoint
+        let translationMatrix = new Matrix4().makeTranslation(midPoint.x, midPoint.y, midPoint.z);
+
+        box.matrixAutoUpdate = false;
+        box.matrix.multiplyMatrices(translationMatrix, rotMatrix);
+
         scene.add(box);
         return box;
     }
+    // ***** END CHANGE *****
 
     let fadeDuration = 5;
     let borderDotDelay = 0.9;
