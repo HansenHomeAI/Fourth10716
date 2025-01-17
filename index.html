@@ -24,24 +24,6 @@
             background: linear-gradient(to top, black 0%, transparent 12%);
             mix-blend-mode: multiply;
         }
-        /* Styles for the toggle button */
-        #toggleButton {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-            background-color: #555;
-            border: none;
-            cursor: pointer;
-        }
-        #toggleButton:focus {
-            outline: none;
-        }
-        #toggleButton:hover {
-            background-color: #777;
-        }
         /* Developer mode controls */
         #developerControls {
             display: none;
@@ -58,8 +40,7 @@
 <body>
     <div id="vignette"></div>
     <div id="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; color: white; font-size: 24px; font-family: Arial, sans-serif;">Lot #1</div>
-    <!-- Toggle button to switch between splats -->
-    <button id="toggleButton"></button>
+
     <!-- Developer mode controls -->
     <div id="developerControls">
         <button id="toggleSplat1">Toggle Splat 1</button>
@@ -119,7 +100,6 @@
 
     const hotspotConfigurations = [
         //{ text: 'Coopers View Park', position: { x: 3.3, y: -0.8, z: -2.4 }, scale: 0.7 },
-        
     ];
 
     // Centralized control section for TapDots
@@ -163,7 +143,6 @@
         { name: 'BorderDot_28', position: { x: -0.32, y: -0.058, z: 0.8 } },
         { name: 'BorderDot_29', position: { x: -0.23, y: -0.064, z: 0.71 } },
         { name: 'BorderDot_30', position: { x: -0.16, y: -0.071, z: 0.675 } },
-    
     ];
 
     const borderLineConnections = [
@@ -388,7 +367,6 @@
             splat2.visible = !splat2.visible;
         });
     } else {
-        document.getElementById('toggleButton').style.display = 'none';
         splat.visible = true;
         splat2.visible = false;
     }
