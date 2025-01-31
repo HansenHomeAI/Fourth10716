@@ -212,7 +212,9 @@
     renderer.setClearColor(new Color(0x000000));
     renderer.setPixelRatio(window.devicePixelRatio * 0.8);
     document.body.appendChild(renderer.domElement);
-
+    // Apply a lightweight brightness filter to the entire canvas (adjust factor as needed)
+    renderer.domElement.style.filter = 'brightness(1.8)';
+    
     let scene = new Scene();
 
     let camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, parameters.camera.maxZoomOut);
